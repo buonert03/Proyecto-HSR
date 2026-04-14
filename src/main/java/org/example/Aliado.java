@@ -1,86 +1,127 @@
 package org.example;
 
 public class Aliado {
+    private String nombre;
     private double psMax = 1000;
     private double psActual = psMax;
-    private int velBase = 100;
-    private int velActual = velBase;
-    private int atqBase = 500;
-    private int atqActual = atqBase;
+    private double velBase = 100;
+    private double velActual = velBase;
+    private double atqBase = 500;
+    private double atqActual = atqBase;
     private int energiaMax = 150;
     private int energia = 75;
-    private double vaActual = (1000/velActual);
-    private int phMax = 5;
-    private int ph = 3;
-    private double danoInfligido = 0;
-    private int equilibrioReducido = 0;
-    private double velReducida = 0.0;
+    private double vaActual = (1000 / velActual);
 // va = Valor de Acción, los puntos de movimiento restantes hasta su próximo turno
-// ph = Puntos de Habilidad, puntos que se consumen o regeneran al usar ciertas habilidades
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 
     public double getPsMax() {
         return psMax;
     }
+
     public double getPsActual() {
         return psActual;
     }
-    public int getVelBase() {
-        return velBase;
-    }
-    public int getVelActual() {
-        return velActual;
-    }
-    public int getAtqBase() {
-        return atqBase;
-    }
-    public int getAtqActual() {
-        return atqActual;
-    }
-    public int getEnergia() {
-        return energia;
-    }
-    public void ataqueNormal(int opcion) {
-        if (opcion == 1) {
-            energia = energia + 25;
-            if (energia > energiaMax) {energia = energiaMax;}
-            danoInfligido = atqActual * 1.25;
-            equilibrioReducido = 20;
-            if (ph < phMax) {ph = ph +1;}
-            vaActual = (1000/velActual);
-        }
-    }
-    public void ataqueEspecial(int opcion) {
-        if ((opcion == 2) && (ph > 0)){
-            ph = ph -1;
-            energia = energia + 50;
-            if (energia > energiaMax) {energia = energiaMax;}
-            danoInfligido = atqActual * 2;
-            equilibrioReducido = 30;
-            velReducida = 0.2;
-            vaActual = (1000/velActual);
-        }
-    }
-    public void ataqueDefinitivo(int opcion) {
-        if ((opcion == 3) && (energia == 150)) {
-            energia = 0;
-            danoInfligido = atqActual * 4;
-            vaActual = ((1000/velActual)*(1-0.2));
-        }
-    }
+
     public void perderPs(int danoRecibido) {
         psActual = psActual - danoRecibido;
     }
-    public void cura(int opcion) {
-        if ((opcion == 4) &&(ph > 0)) {
-            psActual = psActual + psMax*0.25;
-            if (psActual > psMax) {
-                psActual = psMax;
-            }
-            energia = energia + 25;
-            if (energia > energiaMax) {energia = energiaMax;}
+
+    public void curarPs(int curaRecibida) {
+        psActual = psActual + curaRecibida;
+        if (psActual > psMax) {
+            psActual = psMax;
         }
     }
-    public void bufo(int opcion) {
 
+    public double getVelBase() {
+        return velBase;
+    }
+
+    public double getVelActual() {
+        return velActual;
+    }
+
+    public void aumentarVel(double aumento) {
+        velActual = velActual + (velBase * (aumento/100));
+    }
+
+    public void reducirVel(double reduccion) {
+        velActual = velActual - (velBase * (reduccion/100));
+    }
+
+    public double getAtqBase() {
+        return atqBase;
+    }
+
+    public double getAtqActual() {
+        return atqActual;
+    }
+
+    public void aumentarAtq(double aumento) {
+        atqActual = atqActual + (atqBase * (aumento/100));
+    }
+
+    public void reducirAtq(double reduccion) {
+        atqActual = atqActual - (atqBase * (reduccion/100));
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public void aumentarEnergia(int aumento) {
+        energia = energia + aumento;
+        if (energia > energiaMax) {
+            energia = energiaMax;
+        }
+    }
+
+    public void reducirEnergia(int reduccion) {
+        energia = energia - reduccion;
+        if (energia < 0) {
+            energia = 0;
+        }
+    }
+
+    public void vaciarEnergia() {
+        energia = 0;
+    }
+
+    public double getVaActual() {
+        return vaActual;
+    }
+
+    public void resetearVa() {
+        vaActual = (1000 / velActual);
+    }
+
+    public void adelantarAccion(double adelanto) {
+        vaActual = vaActual - (1000 / velActual) * (adelanto/100);
+    }
+
+    public void atrasarAccion(double atraso) {
+        vaActual = vaActual + (1000 / velActual) * (atraso/100);
+    }
+
+    @Override
+    public String toString() {
+        return "Aliado{" +
+                "psMax=" + psMax +
+                ", psActual=" + psActual +
+                ", velBase=" + velBase +
+                ", velActual=" + velActual +
+                ", atqBase=" + atqBase +
+                ", atqActual=" + atqActual +
+                ", energiaMax=" + energiaMax +
+                ", energia=" + energia +
+                ", vaActual=" + vaActual +
+                '}';
     }
 }
