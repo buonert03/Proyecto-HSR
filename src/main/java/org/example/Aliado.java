@@ -2,14 +2,14 @@ package org.example;
 
 public class Aliado {
     private String nombre;
-    private double psMax = 1000;
+    private double psMax = 1000.00;
     private double psActual = psMax;
-    private double velBase = 100;
+    private double velBase = 100.00;
     private double velActual = velBase;
-    private double atqBase = 500;
+    private double atqBase = 500.00;
     private double atqActual = atqBase;
-    private int energiaMax = 150;
-    private int energia = 75;
+    private double energiaMax = 150;
+    private double energia = energiaMax/2;
     private double vaActual = (1000 / velActual);
 // va = Valor de Acción, los puntos de movimiento restantes hasta su próximo turno
 
@@ -29,11 +29,11 @@ public class Aliado {
         return psActual;
     }
 
-    public void perderPs(int danoRecibido) {
+    public void perderPs(double danoRecibido) {
         psActual = psActual - danoRecibido;
     }
 
-    public void curarPs(int curaRecibida) {
+    public void curarPs(double curaRecibida) {
         psActual = psActual + curaRecibida;
         if (psActual > psMax) {
             psActual = psMax;
@@ -72,11 +72,11 @@ public class Aliado {
         atqActual = atqActual - (atqBase * (reduccion/100));
     }
 
-    public int getEnergia() {
+    public double getEnergia() {
         return energia;
     }
 
-    public void aumentarEnergia(int aumento) {
+    public void aumentarEnergia(double aumento) {
         energia = energia + aumento;
         if (energia > energiaMax) {
             energia = energiaMax;
@@ -102,6 +102,8 @@ public class Aliado {
         vaActual = (1000 / velActual);
     }
 
+    public void avanzarVa() {vaActual = vaActual - 1;}
+
     public void adelantarAccion(double adelanto) {
         vaActual = vaActual - (1000 / velActual) * (adelanto/100);
     }
@@ -109,6 +111,8 @@ public class Aliado {
     public void atrasarAccion(double atraso) {
         vaActual = vaActual + (1000 / velActual) * (atraso/100);
     }
+
+
 
     @Override
     public String toString() {

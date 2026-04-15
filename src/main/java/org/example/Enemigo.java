@@ -2,15 +2,15 @@ package org.example;
 
 public class Enemigo {
     private String nombre;
-    private int psMax = 10500;
-    private int psActual = psMax;
+    private double psMax = 10500;
+    private double psActual = psMax;
     private double velBase = 110;
     private double velActual = velBase;
     private double atqBase = 200;
     private double atqActual = atqBase;
     private double vaActual = (1000/velActual);
-    private int equilibrioMax = 100;
-    private int equilibrio = equilibrioMax;
+    private double equilibrioMax = 100;
+    private double equilibrio = equilibrioMax;
     private double vulnerable = 1;
 
     public void setNombre (String nombre) {
@@ -18,16 +18,16 @@ public class Enemigo {
     }
     public String getNombre () {return nombre;}
 
-    public int getPsMax() {
+    public double getPsMax() {
         return psMax;
     }
-    public int getPsActual() {
+    public double getPsActual() {
         return psActual;
     }
-    public void perderPs(int danoRecibido) {
+    public void perderPs(double danoRecibido) {
         psActual = psActual - danoRecibido;
     }
-    public void curarPs(int curaRecibida) {
+    public void curarPs(double curaRecibida) {
         psActual = psActual + curaRecibida;
         if (psActual > psMax) {psActual = psMax;}}
 
@@ -56,19 +56,20 @@ public class Enemigo {
     public double getVaActual() {
         return vaActual;
     }
+    public void avanzarVa() {vaActual = vaActual - 1;}
     public void resetearVa() {vaActual = (1000/velActual);}
     public void adelantarAccion(double adelanto) {
         vaActual = vaActual - (1000/velActual)*(1+adelanto);}
     public void atrasarAccion(double atraso) {
         vaActual = vaActual + (1000/velActual)*(1+atraso);}
 
-    public int getEquilibrioMax() {
+    public double getEquilibrioMax() {
         return equilibrioMax;
     }
-    public int getEquilibrio() {
+    public double getEquilibrio() {
         return equilibrio;
     }
-    public void reducirEquilibrio(int reduccion) {
+    public void reducirEquilibrio(double reduccion) {
         equilibrio = equilibrio - reduccion;
     }
     public void restaurarEquilibrio() {
