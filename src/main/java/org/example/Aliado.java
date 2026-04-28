@@ -33,8 +33,8 @@ public class Aliado {
         psActual = psActual - danoRecibido;
     }
 
-    public void curarPs(double curaRecibida) {
-        psActual = psActual + curaRecibida;
+    public void curarPs(double curaPorcentaje) {
+        psActual = psActual + (psMax * (curaPorcentaje/100));
         if (psActual > psMax) {
             psActual = psMax;
         }

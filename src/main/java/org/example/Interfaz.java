@@ -21,6 +21,7 @@ public Double[] statsEnemigo = game.getStatsEnemigo();
     public void cancerlar() {
         System.out.println("Cancelaste el uso de la habilidad");
     }
+
     public void basico(){
         Double vulnerable;
         if (statsEnemigo[4]-20 <= 0) {
@@ -30,6 +31,7 @@ public Double[] statsEnemigo = game.getStatsEnemigo();
         }
         System.out.printf("Postura: -% | Daño: % | ER: % | PH: %", statsEnemigo[4]-20, statsAliado[1]*1.25*vulnerable, statsAliado[4]+25.0, game.getPH()+1);
     }
+
     public void incremento(){
 
     }

@@ -1,6 +1,5 @@
 package org.example;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {
@@ -10,7 +9,7 @@ public class Game {
     private Double[] statsAliado = new Double[]{aliado.getPsActual(), aliado.getAtqActual(), aliado.getVelActual(), aliado.getVaActual(), aliado.getEnergia()};
     private Enemigo enemigo;
     private Double[] statsEnemigo = new Double[]{enemigo.getPsActual(), enemigo.getAtqActual(), enemigo.getVelActual(), enemigo.getVaActual(), enemigo.getEquilibrio()};
-    private boolean endCombat = false;
+    private boolean finCombate = false;
     private ArrayList<Double> valoresAccion;
 
     public Double[] getStatsAliado() {
@@ -20,13 +19,19 @@ public class Game {
         return statsEnemigo;
     }
 
+    // ---------------------------------------------------------------------------------------
+    // ---------------------- GESTIÓN DE PUNTOS DE HABILIDAD ---------------------------------
+    // ---------------------------------------------------------------------------------------
+
     public Double getPH() {return ph;}
+
     public void aumentarPH(Double aumento) {
         ph += aumento;
         if (ph > 5){
             ph = 5;
         }
     }
+
     public void reducirPH(Double reduccion) {
         ph -= reduccion;
         if (ph < 0) {
@@ -34,6 +39,11 @@ public class Game {
         }
     }
 
+    // -------------------------------------------------------------------------------------
+    // ------------------------ HABILIDADES DEL ALIADO -------------------------------------
+    // -------------------------------------------------------------------------------------
+
+        // Habilidad 0
     public void usarBasico() {
         aumentarPH(1.0);
         aliado.aumentarEnergia(25.0);
@@ -41,6 +51,8 @@ public class Game {
         enemigo.perderPs(aliado.getAtqActual() * 1.25 * enemigo.getVulnerable());
         aliado.resetearVa();
     }
+
+        // Habilidad 1
     public void usarIncremento() {
         reducirPH(2.0);
         aliado.aumentarEnergia(75.0);
@@ -50,11 +62,53 @@ public class Game {
         aliado.adelantarAccion(50);
     }
 
+        // Habilidad 2
+    public void usarCuracion() {
+        reducirPH(1.0);
+        aumentarPH(1.0);
+        aliado.curarPs(25);
+        aliado.aumentarEnergia(25.0);
+        aliado.resetearVa();
+    }
+
+        // Habilidad 3
+    public void usarEspecial() {
+        reducirPH(1.0);
+        aliado.aumentarEnergia(50.0);
+        enemigo.reducirEquilibrio(20.0);
+        enemigo.reducirVel(20);
+        enemigo.perderPs(aliado.getAtqActual() * 2.0 * enemigo.getVulnerable());
+        aliado.resetearVa();
+    }
+
+        // Habilidad 4
+    public void usarDefinitiva() {
+        aliado.vaciarEnergia();
+        aumentarPH(3.0);
+        enemigo.reducirEquilibrio(40.0);
+        enemigo.perderPs(aliado.getAtqActual() * 4.0 * enemigo.getVulnerable());
+        aliado.resetearVa();
+        aliado.adelantarAccion(25.0);
+    }
+
+    // ----------------------------------------------------------------------------------------
+    // --------------------------- HABILIDADES DEL ENEMIGO ------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------------------------
+    // ------------------------------ LÓGICA DEL COMBATE --------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    public void acabaCombate() {
+        if (aliado.getPsActual() <= 0 || enemigo.getPsActual() <= 0) {
+            finCombate = true;
+        }
+    }
 
     public void combate() {
         valoresAccion.add(aliado.getVaActual());
         valoresAccion.add(enemigo.getVaActual());
-        while (!endCombat) {
+        while (!finCombate) {
             if (valoresAccion.get(0) <= 0) {
 
             } else if (valoresAccion.get(1) <= 0) {
