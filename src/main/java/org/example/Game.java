@@ -1,24 +1,19 @@
 package org.example;
 
-import java.util.ArrayList;
+import java.sql.SQLOutput;
 
 public class Game {
     private double phMax = 5;
     private double ph = 3;
-    private Aliado aliado;
-    private Double[] statsAliado = new Double[]{aliado.getPsActual(), aliado.getAtqActual(), aliado.getVelActual(), aliado.getVaActual(), aliado.getEnergia()};
-    private Enemigo enemigo;
-    private Double[] statsEnemigo = new Double[]{enemigo.getPsActual(), enemigo.getAtqActual(), enemigo.getVelActual(), enemigo.getVaActual(), enemigo.getEquilibrio()};
-    private boolean finCombate = false;
-    private ArrayList<Double> valoresAccion;
+    private Aliado aliado = new Aliado();
+    private Enemigo enemigo = new Enemigo();
 
-    public Double[] getStatsAliado() {
-        return statsAliado;
+    public Aliado getAliado() {
+        return this.aliado;
     }
-    public Double[] getStatsEnemigo() {
-        return statsEnemigo;
+    public Enemigo getEnemigo() {
+        return this.enemigo;
     }
-
     // ---------------------------------------------------------------------------------------
     // ---------------------- GESTIÓN DE PUNTOS DE HABILIDAD ---------------------------------
     // ---------------------------------------------------------------------------------------
@@ -43,7 +38,19 @@ public class Game {
     // ------------------------ HABILIDADES DEL ALIADO -------------------------------------
     // -------------------------------------------------------------------------------------
 
-        // Habilidad 0
+
+    /**
+     * @param habilidad Un número entero que representa cual habilidad se ha escogido y comprobar si es válida.
+     */
+    public boolean habilidadValida(int habilidad) {
+        if (habilidad != 1 && habilidad != 2 && habilidad != 3 && habilidad != 4 && habilidad != 5) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+        // Habilidad 1
     public void usarBasico() {
         aumentarPH(1.0);
         aliado.aumentarEnergia(25.0);
@@ -52,17 +59,17 @@ public class Game {
         aliado.resetearVa();
     }
 
-        // Habilidad 1
+        // Habilidad 2
     public void usarIncremento() {
         reducirPH(2.0);
         aliado.aumentarEnergia(75.0);
         aliado.aumentarAtq(40);
-        aliado.aumentarVel(100);
+        aliado.aumentarVel(30);
         aliado.resetearVa();
         aliado.adelantarAccion(50);
     }
 
-        // Habilidad 2
+        // Habilidad 3
     public void usarCuracion() {
         reducirPH(1.0);
         aumentarPH(1.0);
@@ -71,21 +78,22 @@ public class Game {
         aliado.resetearVa();
     }
 
-        // Habilidad 3
+        // Habilidad 4
     public void usarEspecial() {
         reducirPH(1.0);
         aliado.aumentarEnergia(50.0);
-        enemigo.reducirEquilibrio(20.0);
+        enemigo.reducirEquilibrio(40.0);
         enemigo.reducirVel(20);
+        enemigo.reducirAtq(10);
         enemigo.perderPs(aliado.getAtqActual() * 2.0 * enemigo.getVulnerable());
         aliado.resetearVa();
     }
 
-        // Habilidad 4
+        // Habilidad 5
     public void usarDefinitiva() {
         aliado.vaciarEnergia();
         aumentarPH(3.0);
-        enemigo.reducirEquilibrio(40.0);
+        enemigo.reducirEquilibrio(50.0);
         enemigo.perderPs(aliado.getAtqActual() * 4.0 * enemigo.getVulnerable());
         aliado.resetearVa();
         aliado.adelantarAccion(25.0);
@@ -95,28 +103,83 @@ public class Game {
     // --------------------------- HABILIDADES DEL ENEMIGO ------------------------------------
     // ----------------------------------------------------------------------------------------
 
+    public void reestablecerEq() {
+        enemigo.restaurarEquilibrio();
+    }
+    // Habilidad 1
+    public void enemigoBasico() {
+        aliado.perderPs(enemigo.getAtqActual() * 1.2);
+        enemigo.resetearVa();
+    }
+
+    // Habilidad 2
+    public void enemigoQuitarPH() {
+        aliado.perderPs(enemigo.getAtqActual() * 1.4);
+        reducirPH(1.0);
+        enemigo.resetearVa();
+    }
+
+    // Habilidad 3
+    public void enemigoAutobufo() {
+        enemigo.aumentarAtq(15);
+        enemigo.aumentarVel(15);
+        aliado.perderPs(enemigo.getAtqActual()*1.5);
+        enemigo.resetearVa();
+    }
+
+    // Habilidad 4
+    public void enemigoDebuff() {
+        aliado.reducirAtq(10);
+        aliado.reducirVel(10);
+        aliado.reducirEnergia(10);
+        aliado.perderPs(enemigo.getAtqActual() * 1.1);
+        enemigo.resetearVa();
+    }
+
+    // Habilidad 5
+    public void enemigoDefinitiva() {
+        enemigo.curarPs(15);
+        aliado.perderPs(enemigo.getAtqActual()*2);
+        aliado.atrasarAccion(20);
+        enemigo.resetearVa();
+        enemigo.adelantarAccion(40);
+    }
     // ----------------------------------------------------------------------------------------
     // ------------------------------ LÓGICA DEL COMBATE --------------------------------------
     // ----------------------------------------------------------------------------------------
 
-    public void acabaCombate() {
+    public boolean acabaCombate() {
         if (aliado.getPsActual() <= 0 || enemigo.getPsActual() <= 0) {
-            finCombate = true;
+            System.out.println("Acabó el combate");
+            return true;
         }
+        return false;
     }
 
-    public void combate() {
-        valoresAccion.add(aliado.getVaActual());
-        valoresAccion.add(enemigo.getVaActual());
-        while (!finCombate) {
-            if (valoresAccion.get(0) <= 0) {
+    public String valorAccionCombate() {
+        if (aliado.getVaActual() <= 0) {
 
-            } else if (valoresAccion.get(1) <= 0) {
+            System.out.println("----TURNO ALIADO----");
 
-            } else {
-                aliado.avanzarVa();
-                enemigo.avanzarVa();
-            }
+            return  "Turno aliado";
+
+        } else if (enemigo.getVaActual() <= 0) {
+
+            System.out.println("----TURNO ENEMIGO----");
+
+            return "Turno enemigo";
+
+        } else {
+            System.out.println("Aliado "+aliado.getVaActual());
+            System.out.println("Enemigo "+enemigo.getVaActual());
+            aliado.avanzarVa();
+            enemigo.avanzarVa();
+            System.out.println();
+            System.out.println("Aliado "+aliado.getVaActual());
+            System.out.println("Enemigo "+enemigo.getVaActual());
+            System.out.println();
+            System.out.println();
+            return "Nada";
         }
     }
 }
