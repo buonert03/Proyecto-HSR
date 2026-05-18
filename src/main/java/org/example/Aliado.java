@@ -114,7 +114,8 @@ public class Aliado {
     @Override
     public String toString() {
         return "Aliado{" +
-                "psMax=" + psMax +
+                "nombre='" + nombre + '\'' +
+                ", psMax=" + psMax +
                 ", psActual=" + psActual +
                 ", velBase=" + velBase +
                 ", velActual=" + velActual +

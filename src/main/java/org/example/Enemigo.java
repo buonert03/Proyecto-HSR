@@ -103,5 +103,20 @@ public class Enemigo {
     public void aumentarVulnerabilidad () {vulnerable = 1.3;}
     public void restablecerVulnerabilidad () {vulnerable = 1;}
 
-
+    @Override
+    public String toString() {
+        return "Enemigo{" +
+                "nombre='" + nombre + '\'' +
+                ", psMax=" + psMax +
+                ", psActual=" + psActual +
+                ", velBase=" + velBase +
+                ", velActual=" + velActual +
+                ", atqBase=" + atqBase +
+                ", atqActual=" + atqActual +
+                ", vaActual=" + vaActual +
+                ", equilibrioMax=" + equilibrioMax +
+                ", equilibrio=" + equilibrio +
+                ", vulnerable=" + vulnerable +
+                '}';
+    }
 }
