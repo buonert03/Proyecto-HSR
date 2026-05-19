@@ -21,16 +21,31 @@ public class Aliado {
         return nombre;
     }
 
-    // Vida
+    // SALUD
+
+    /**
+     * @return Los Puntos de Salud máximos del aliado.
+     */
     public double getPsMax() {
         return psMax;
     }
+    /**
+     * @return Los Puntos de Salud actuales del aliado.
+     */
     public double getPsActual() {
         return psActual;
     }
+    /**
+     * Reduce la vida actual del aliado en una cantidad igual al daño recibido.
+     * @param danoRecibido Número tipo double que representa el daño infligido por el enemigo con el uso de una habilidad.
+     */
     public void perderPs(double danoRecibido) {
         psActual = psActual - danoRecibido;
     }
+    /**
+     * Aumenta los Puntos de Salud actuales según el porcentaje de curación dado que se aplicará a los Puntos de Salud Máximos, pero la vida actual no superará los Puntos de Salud Máximos.
+     * @param curaPorcentaje Número tipo double que se usará para calcular el porcentaje de Salud curada.
+     */
     public void curarPs(double curaPorcentaje) {
         psActual = psActual + (psMax * (curaPorcentaje/100));
         if (psActual > psMax) {
@@ -38,7 +53,11 @@ public class Aliado {
         }
     }
 
-    // Ataque
+    // ATAQUE
+
+    /**
+     * @return El valor de ataque actual del aliado.
+     */
     public double getAtqBase() {
         return atqBase;
     }

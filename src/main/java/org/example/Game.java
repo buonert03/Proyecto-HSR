@@ -14,6 +14,7 @@ public class Game {
     public Enemigo getEnemigo() {
         return this.enemigo;
     }
+
     // ---------------------------------------------------------------------------------------
     // ---------------------- GESTIÓN DE PUNTOS DE HABILIDAD ---------------------------------
     // ---------------------------------------------------------------------------------------
@@ -149,8 +150,13 @@ public class Game {
     // ----------------------------------------------------------------------------------------
 
     public boolean acabaCombate() {
-        if (aliado.getPsActual() <= 0 || enemigo.getPsActual() <= 0) {
+        if (aliado.getPsActual() <= 0) {
             System.out.println("Acabó el combate");
+            System.out.println("GANASTE");
+            return true;
+        } else if (enemigo.getPsActual() <= 0) {
+            System.out.println("Acabó el combate");
+            System.out.println("PERDISTE");
             return true;
         }
         return false;

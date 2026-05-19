@@ -38,8 +38,8 @@ public class GameController {
                             } else {
                                 interfaz.cancelar();
                             }
-                            
-                        } else if (habilidadEscogida == 2 && game.getPH() >= 2) {
+
+                        } else if (habilidadEscogida == 2) {
                             interfaz.incremento(game.getAliado(), game.getPH());
                             interfaz.quieresUsarLa(habilidadEscogida);
                             if (usar.next().equalsIgnoreCase("S")) {
@@ -47,13 +47,13 @@ public class GameController {
                                     game.usarIncremento();
                                     turnoAliado = false;
                                 } else {
-                                    interfaz.noUsable();
+                                    interfaz.noUsable(2.0);
                                 }
                             } else {
                                 interfaz.cancelar();
                             }
 
-                        } else if (habilidadEscogida == 3 && game.getPH() >= 1) {
+                        } else if (habilidadEscogida == 3) {
                             interfaz.curacion(game.getAliado(), game.getPH());
                             interfaz.quieresUsarLa(habilidadEscogida);
                             if (usar.next().equalsIgnoreCase("S")) {
@@ -61,13 +61,13 @@ public class GameController {
                                     game.usarCuracion();
                                     turnoAliado = false;
                                 } else {
-                                    interfaz.noUsable();
+                                    interfaz.noUsable(1.0);
                                 }
                             } else {
                                 interfaz.cancelar();
                             }
 
-                        } else if (habilidadEscogida == 4 && game.getPH() >= 1) {
+                        } else if (habilidadEscogida == 4) {
                             interfaz.especial(game.getAliado(), game.getEnemigo(), game.getPH());
                             interfaz.quieresUsarLa(habilidadEscogida);
                             if (usar.next().equalsIgnoreCase("S")) {
@@ -75,13 +75,13 @@ public class GameController {
                                     game.usarEspecial();
                                     turnoAliado = false;
                                 } else {
-                                    interfaz.noUsable();
+                                    interfaz.noUsable(1.0);
                                 }
                             } else {
                                 interfaz.cancelar();
                             }
 
-                        } else if (habilidadEscogida == 5 && game.getAliado().getEnergia() == game.getAliado().getEnergiaMax()) {
+                        } else if (habilidadEscogida == 5) {
                             interfaz.definitiva(game.getAliado(), game.getEnemigo(), game.getPH());
                             interfaz.quieresUsarLa(habilidadEscogida);
                             if (usar.next().equalsIgnoreCase("S")) {
@@ -89,13 +89,13 @@ public class GameController {
                                     game.usarDefinitiva();
                                     turnoAliado = false;
                                 } else {
-                                    interfaz.noUsable();
+                                    interfaz.noEnergia(game.getAliado().getEnergiaMax(), game.getAliado().getEnergia());
                                 }
                             } else {
                                 interfaz.cancelar();
                             }
-
                         }
+
                     } else {
                         System.out.println("Input inválido, vuelve a probar.");
                     }
@@ -107,27 +107,30 @@ public class GameController {
                 if (secuenciaAtaqueEnemigo > 7) {
                     secuenciaAtaqueEnemigo = 1;
                 }
-                if (secuenciaAtaqueEnemigo == 1) {
-                    interfaz.enemigoBasico(game.getAliado(), game.getEnemigo());
-                    game.enemigoBasico();
-                } else if (secuenciaAtaqueEnemigo == 2) {
-                    interfaz.enemigoDebufo(game.getAliado(), game.getEnemigo());
-                    game.enemigoDebuff();
-                } else if (secuenciaAtaqueEnemigo == 3) {
-                    interfaz.enemigoBasico(game.getAliado(), game.getEnemigo());
-                    game.enemigoBasico();
-                } else if (secuenciaAtaqueEnemigo == 4) {
-                    interfaz.enemigoAutoBufo(game.getAliado(), game.getEnemigo());
-                    game.enemigoAutobufo();
-                } else if (secuenciaAtaqueEnemigo == 5) {
-                    interfaz.enemigoQuitar(game.getAliado(), game.getEnemigo(), game.getPH());
-                    game.enemigoQuitarPH();
-                } else if (secuenciaAtaqueEnemigo == 6) {
-                    interfaz.enemigoBasico(game.getAliado(), game.getEnemigo());
-                    game.enemigoBasico();
-                } else if (secuenciaAtaqueEnemigo == 7) {
-                    interfaz.enemigoDefinitiva(game.getAliado(), game.getEnemigo());
-                    game.enemigoDefinitiva();
+
+                switch (secuenciaAtaqueEnemigo) {
+                    case 1:
+                    case 3:
+                    case 6:
+                        interfaz.enemigoBasico(game.getAliado(), game.getEnemigo());
+                        game.enemigoBasico();
+                        break;
+                    case 2:
+                        interfaz.enemigoDebufo(game.getAliado(), game.getEnemigo());
+                        game.enemigoDebuff();
+                        break;
+                    case 4:
+                        interfaz.enemigoAutoBufo(game.getAliado(), game.getEnemigo());
+                        game.enemigoAutobufo();
+                        break;
+                    case 5:
+                        interfaz.enemigoQuitar(game.getAliado(), game.getEnemigo(), game.getPH());
+                        game.enemigoQuitarPH();
+                        break;
+                    case 7:
+                        interfaz.enemigoDefinitiva(game.getAliado(), game.getEnemigo());
+                        game.enemigoDefinitiva();
+                        break;
                 }
             }
         }

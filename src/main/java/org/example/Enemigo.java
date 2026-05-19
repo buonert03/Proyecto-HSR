@@ -88,8 +88,11 @@ public class Enemigo {
         equilibrio = equilibrio - reduccion;
         if (equilibrio <= 0) {
             aumentarVulnerabilidad();
-            atrasarAccion(25);
+            atrasarAccion(atrasoEquilibrioRoto());
         }
+    }
+    public double atrasoEquilibrioRoto() {
+        return 25.0;
     }
     public void restaurarEquilibrio() {
         if (this.equilibrio <= 0) {
