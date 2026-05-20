@@ -1,17 +1,16 @@
 package org.example;
 
-public class Aliado {
-    private String nombre;
-    private double psMax = 4000.00;
-    private double psActual = psMax;
-    private double velBase = 100.00;
-    private double velActual = velBase;
-    private double atqBase = 400.00;
-    private double atqActual = atqBase;
+public class Aliado extends Entidad {
     private double energiaMax = 150;
     private double energia = energiaMax/2;
-    private double vaActual = (1000 / velActual);
-// va = Valor de Acción, los puntos de movimiento restantes hasta su próximo turno
+
+    // CONSTRUCTOR
+
+    public Aliado(String nombre, double psMax, double velBase, double atqBase, double energiaMax) {
+        super(nombre, psMax, velBase, atqBase);
+        this.energiaMax = energiaMax;
+        this.energia = energiaMax/2;
+    }
 
     // Nombre
     public void setNombre(String nombre) {
