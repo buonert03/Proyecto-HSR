@@ -5,8 +5,8 @@ import java.sql.SQLOutput;
 public class Game {
     private double phMax = 5;
     private double ph = 3;
-    private Aliado aliado = new Aliado();
-    private Enemigo enemigo = new Enemigo();
+    private Aliado aliado = new Aliado("Math", 4000, 100, 250, 150);
+    private Enemigo enemigo = new Enemigo("Marta", 14000, 120, 150, 80);
 
     public Aliado getAliado() {
         return this.aliado;
@@ -15,19 +15,14 @@ public class Game {
         return this.enemigo;
     }
 
-    // ---------------------------------------------------------------------------------------
     // ---------------------- GESTIÓN DE PUNTOS DE HABILIDAD ---------------------------------
-    // ---------------------------------------------------------------------------------------
-
     public Double getPH() {return ph;}
-
     public void aumentarPH(Double aumento) {
         ph += aumento;
         if (ph > 5){
             ph = 5;
         }
     }
-
     public void reducirPH(Double reduccion) {
         ph -= reduccion;
         if (ph < 0) {
@@ -35,11 +30,7 @@ public class Game {
         }
     }
 
-    // -------------------------------------------------------------------------------------
     // ------------------------ HABILIDADES DEL ALIADO -------------------------------------
-    // -------------------------------------------------------------------------------------
-
-
     /**
      * @param habilidad Un número entero que representa cual habilidad se ha escogido y comprobar si es válida.
      */
@@ -100,10 +91,7 @@ public class Game {
         aliado.adelantarAccion(25.0);
     }
 
-    // ----------------------------------------------------------------------------------------
     // --------------------------- HABILIDADES DEL ENEMIGO ------------------------------------
-    // ----------------------------------------------------------------------------------------
-
     public void reestablecerEq() {
         enemigo.restaurarEquilibrio();
     }
@@ -145,10 +133,8 @@ public class Game {
         enemigo.resetearVa();
         enemigo.adelantarAccion(40);
     }
-    // ----------------------------------------------------------------------------------------
-    // ------------------------------ LÓGICA DEL COMBATE --------------------------------------
-    // ----------------------------------------------------------------------------------------
 
+    // ------------------------------ LÓGICA DEL COMBATE --------------------------------------
     public boolean acabaCombate() {
         if (aliado.getPsActual() <= 0) {
             System.out.println("Acabó el combate");
@@ -161,30 +147,22 @@ public class Game {
         }
         return false;
     }
-
     public String valorAccionCombate() {
         if (aliado.getVaActual() <= 0) {
 
-            System.out.println("----TURNO ALIADO----");
+            System.out.println("-------- TURNO ALIADO --------");
 
             return  "Turno aliado";
 
         } else if (enemigo.getVaActual() <= 0) {
 
-            System.out.println("----TURNO ENEMIGO----");
+            System.out.println("-------- TURNO ENEMIGO --------");
 
             return "Turno enemigo";
 
         } else {
-            System.out.println("Aliado "+aliado.getVaActual());
-            System.out.println("Enemigo "+enemigo.getVaActual());
             aliado.avanzarVa();
             enemigo.avanzarVa();
-            System.out.println();
-            System.out.println("Aliado "+aliado.getVaActual());
-            System.out.println("Enemigo "+enemigo.getVaActual());
-            System.out.println();
-            System.out.println();
             return "Nada";
         }
     }

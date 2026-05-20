@@ -1,89 +1,121 @@
 package org.example;
 
-public class Enemigo {
-    private String nombre;
-    private double psMax = 10500;
-    private double psActual = psMax;
-    private double velBase = 180;
-    private double velActual = velBase;
-    private double atqBase = 150;
-    private double atqActual = atqBase;
-    private double vaActual = (1000/velActual);
-    private double equilibrioMax = 100;
-    private double equilibrio = equilibrioMax;
-    private double vulnerable = 1;
+public class Enemigo extends Entidad {
+    private double equilibrioMax;
+    private double equilibrio;
+    private double vulnerable;
 
-    // Nombre
-    public void setNombre (String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre () {return nombre;}
-
-    // Vida
-    public double getPsMax() {
-        return psMax;
-    }
-    public double getPsActual() {
-        return psActual;
-    }
-    public void perderPs(double danoRecibido) {
-        psActual = psActual - danoRecibido;
-    }
-    public void curarPs(double curaRecibida) {
-        psActual = psActual + curaRecibida;
-        if (psActual > psMax) {psActual = psMax;}}
-
-    // Ataque
-    public double getAtqBase() {
-        return atqBase;
-    }
-    public double getAtqActual() {
-        return atqActual;
-    }
-    public void aumentarAtq(double aumento) {
-        atqActual = atqActual + (atqBase*(aumento/100));}
-    public void reducirAtq(double reduccion) {
-        atqActual = atqActual - (atqBase*(reduccion/100));}
-
-    // Velocidad y Valor de Acción
-    public double getVelBase() {
-        return velBase;
-    }
-    public double getVelActual() {
-        return velActual;
-    }
-    public void aumentarVel(double aumento) {
-        Double velAumentada = velActual + (velBase * (aumento/100));
-        this.vaActual = this.vaActual - ((1000/velActual)-(1000/velAumentada));
-        this.velActual = velAumentada;
-    }
-    public void reducirVel(double reduccion) {
-        Double velReducida = velActual - (velBase * (reduccion/100));
-        if (velReducida < velBase/2) {velReducida = velBase/2;}
-        this.vaActual = this.vaActual + ((1000/velReducida)-(1000/this.velActual));
-        this.velActual = velReducida;
+    // ---------------- CONSTRUCTOR ----------------
+    public Enemigo(String nombre, double psMax, double atqBase, double velBase, double equilibrioMax) {
+        super(nombre, psMax, velBase, atqBase);
+        this.equilibrioMax = equilibrioMax;
+        this.equilibrio = equilibrioMax;
+        this.vulnerable = 1;
     }
 
-    public double getVaActual() {
-        return vaActual;
+    // ---------------- NOMBRE ----------------
+    @Override
+    protected String getNombre() {
+        return super.getNombre();
     }
-    public void avanzarVa() {
-        vaActual = vaActual - 1;
-        if (vaActual < 0) {vaActual = 0;}
-    }
-    public void resetearVa() {vaActual = (1000/velActual);}
-    public void adelantarAccion(double adelanto) {
-        vaActual = vaActual - (1000/velActual)*(adelanto/100);}
-    public void atrasarAccion(double atraso) {
-        vaActual = vaActual + (1000/velActual)*(atraso/100);}
 
-    // Equilibrio
+    // ---------------- SALUD ----------------
+    @Override
+    protected double getPsMax() {
+        return super.getPsMax();
+    }
+    @Override
+    protected double getPsActual() {
+        return super.getPsActual();
+    }
+    @Override
+    protected void perderPs(double danoRecibido) {
+        super.perderPs(danoRecibido);
+    }
+    @Override
+    protected void curarPs(double curaPorcentaje) {
+        super.curarPs(curaPorcentaje);
+    }
+
+    // ---------------- ATAQUE ----------------
+    @Override
+    protected double getAtqBase() {
+        return super.getAtqBase();
+    }
+    @Override
+    protected double getAtqActual() {
+        return super.getAtqActual();
+    }
+    @Override
+    protected void reducirAtq(double reduccion) {
+        super.reducirAtq(reduccion);
+    }
+    @Override
+    protected void aumentarAtq(double aumento) {
+        super.aumentarAtq(aumento);
+    }
+
+    // ---------------- VELOCIDAD ----------------
+    @Override
+    protected double getVelBase() {
+        return super.getVelBase();
+    }
+    @Override
+    protected double getVelActual() {
+        return super.getVelActual();
+    }
+    @Override
+    protected void reducirVel(double aumento) {
+        super.reducirVel(aumento);
+    }
+    @Override
+    protected void aumentarVel(double reduccion) {
+        super.aumentarVel(reduccion);
+    }
+
+    // ---------------- VALOR DE ACCIÓN ----------------
+    @Override
+    protected double getVaActual() {
+        return super.getVaActual();
+    }
+    @Override
+    protected void resetearVa() {
+        super.resetearVa();
+    }
+    @Override
+    protected void avanzarVa() {
+        super.avanzarVa();
+    }
+    @Override
+    protected void atrasarAccion(double adelanto) {
+        super.atrasarAccion(adelanto);
+    }
+    @Override
+    protected void adelantarAccion(double atraso) {
+        super.adelantarAccion(atraso);
+    }
+
+    // ---------------- EQUILIBRIO ----------------
+    /**
+     * Consigue el valor de Equilibrio Máximo del Enemigo.
+     * @return Valor que representa el Equilibrio Máximo.
+     */
     public double getEquilibrioMax() {
         return equilibrioMax;
     }
+    /**
+     * Consigue el valor de Equilibrio actual del Enemigo.
+     * @return Valor que representa la cantidad de Equilibrio actual.
+     */
     public double getEquilibrio() {
         return equilibrio;
     }
+    /**
+     * Reduce el Equilibrio actual del enemigo en una cantidad igual a la dada,
+     * si el equilibrio se reduce a 0 o cae por debajo de 0 actualizará el valor de Vulnerable
+     * y atrasará la acción del Enemigo.
+     * @param reduccion Cantidad de Equilibrio perdido.
+     */
     public void reducirEquilibrio(double reduccion) {
         equilibrio = equilibrio - reduccion;
         if (equilibrio <= 0) {
@@ -91,35 +123,40 @@ public class Enemigo {
             atrasarAccion(atrasoEquilibrioRoto());
         }
     }
+    /**
+     * Consigue el valor de Atraso de Acción cuando el equilibrio se reduce por debajo de 0.
+     * @return Valor de Atraso de Acción.
+     */
     public double atrasoEquilibrioRoto() {
         return 25.0;
     }
+    /**
+     * Restaura el Equilibrio a su valor máximo.
+     */
     public void restaurarEquilibrio() {
         if (this.equilibrio <= 0) {
             equilibrio = equilibrioMax;
             restablecerVulnerabilidad();
         }
     }
+    /**
+     * Obtiene el multiplicador del estado actual de Vulnerabilidad del Enemigo.
+     * @return Valor multiplicativo cuyo valor depende de la cantidad de Equilibrio del Enemigo.
+     */
     public double getVulnerable() {
         return vulnerable;
     }
+    /**
+     * Aumenta el valor del multiplicador de Vulnerable.
+     */
     public void aumentarVulnerabilidad () {vulnerable = 1.3;}
+    /**
+     * Reinicia el valor del multiplicador de Vulnerable.
+     */
     public void restablecerVulnerabilidad () {vulnerable = 1;}
 
     @Override
     public String toString() {
-        return "Enemigo{" +
-                "nombre='" + nombre + '\'' +
-                ", psMax=" + psMax +
-                ", psActual=" + psActual +
-                ", velBase=" + velBase +
-                ", velActual=" + velActual +
-                ", atqBase=" + atqBase +
-                ", atqActual=" + atqActual +
-                ", vaActual=" + vaActual +
-                ", equilibrioMax=" + equilibrioMax +
-                ", equilibrio=" + equilibrio +
-                ", vulnerable=" + vulnerable +
-                '}';
+        return super.toString() + " | EQ: " + String.format("%.0f", equilibrio) + " }";
     }
 }
