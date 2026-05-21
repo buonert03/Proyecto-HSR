@@ -8,6 +8,12 @@ public class Game {
     private Aliado aliado = new Aliado("Math", 4000, 100, 250, 150);
     private Enemigo enemigo = new Enemigo("Marta", 14000, 120, 150, 80);
 
+    public Game(Aliado aliado, Enemigo enemigo) {
+        this.aliado = aliado;
+        this.enemigo = enemigo;
+    }
+
+
     public Aliado getAliado() {
         return this.aliado;
     }

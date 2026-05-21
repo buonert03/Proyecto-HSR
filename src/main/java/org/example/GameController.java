@@ -8,9 +8,9 @@ public class GameController {
     private Scanner habilidad = new Scanner(System.in);
     private Scanner usar = new Scanner(System.in);
 
-    public GameController() {
+    public GameController(Game game) {
         interfaz = new Interfaz();
-        game = new Game();
+        this.game = game;
     }
 
     public void combate() {

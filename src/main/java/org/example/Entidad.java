@@ -1,7 +1,7 @@
 package org.example;
 
 
-public class Entidad {
+public abstract class Entidad {
     protected String nombre;
     protected double psMax;
     protected double psActual;
@@ -185,3 +185,4 @@ public class Entidad {
                 " | VA: " + String.format("%.2f", vaActual);
     }
 }
+
