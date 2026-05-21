@@ -29,6 +29,7 @@ public abstract class Entidad {
         this.velActual = velBase;
         this.vaActual = 1000/velActual;
     }
+
     // ---------------- NOMBRE ----------------
     /**
      * Método para conseguir el nombre de la entidad.
@@ -166,14 +167,14 @@ public abstract class Entidad {
      * @param adelanto Porcentaje de adelanto.
      */
     protected void atrasarAccion(double adelanto)  {
-        vaActual = vaActual - (1000 / velActual) * (adelanto/100);
+        vaActual = vaActual + (1000 / velActual) * (adelanto/100);
     }
     /**
      * Atrasa la siguiente acción de la Entidad al aumentar su Valor de Acción.
      * @param atraso Porcentaje de atraso.
      */
     protected void adelantarAccion(double atraso)  {
-        vaActual = vaActual + (1000 / velActual) * (atraso/100);
+        vaActual = vaActual - (1000 / velActual) * (atraso/100);
     }
 
     @Override

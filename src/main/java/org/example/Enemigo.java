@@ -7,7 +7,7 @@ public class Enemigo extends Entidad {
 
     // ---------------- CONSTRUCTOR ----------------
     public Enemigo(String nombre, double psMax, double atqBase, double velBase, double equilibrioMax) {
-        super(nombre, psMax, velBase, atqBase);
+        super(nombre, psMax, atqBase, velBase);
         this.equilibrioMax = equilibrioMax;
         this.equilibrio = equilibrioMax;
         this.vulnerable = 1;

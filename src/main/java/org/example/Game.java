@@ -39,6 +39,7 @@ public class Game {
     // ------------------------ HABILIDADES DEL ALIADO -------------------------------------
     /**
      * @param habilidad Un número entero que representa cual habilidad se ha escogido y comprobar si es válida.
+     * @return Valor booleano que representa si la habilidad dada es válida o no para el propósito del programa.
      */
     public boolean habilidadValida(int habilidad) {
         if (habilidad != 1 && habilidad != 2 && habilidad != 3 && habilidad != 4 && habilidad != 5) {
@@ -101,6 +102,7 @@ public class Game {
     public void reestablecerEq() {
         enemigo.restaurarEquilibrio();
     }
+
     // Habilidad 1
     public void enemigoBasico() {
         aliado.perderPs(enemigo.getAtqActual() * 1.2);
@@ -144,28 +146,22 @@ public class Game {
     public boolean acabaCombate() {
         if (aliado.getPsActual() <= 0) {
             System.out.println("Acabó el combate");
-            System.out.println("GANASTE");
+            System.out.println("PERDISTE");
             return true;
         } else if (enemigo.getPsActual() <= 0) {
             System.out.println("Acabó el combate");
-            System.out.println("PERDISTE");
+            System.out.println("GANASTE");
             return true;
         }
         return false;
     }
     public String valorAccionCombate() {
         if (aliado.getVaActual() <= 0) {
-
-            System.out.println("-------- TURNO ALIADO --------");
-
+            System.out.println("---------------- TURNO " + aliado.getNombre() + " ----------------");
             return  "Turno aliado";
-
         } else if (enemigo.getVaActual() <= 0) {
-
-            System.out.println("-------- TURNO ENEMIGO --------");
-
+            System.out.println("---------------- TURNO " + enemigo.getNombre() + " --------");
             return "Turno enemigo";
-
         } else {
             aliado.avanzarVa();
             enemigo.avanzarVa();

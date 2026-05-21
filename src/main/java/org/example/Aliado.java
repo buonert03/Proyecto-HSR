@@ -6,7 +6,7 @@ public class Aliado extends Entidad {
 
     // ---------------- CONSTRUCTOR ----------------
     public Aliado(String nombre, double psMax, double atqBase, double velBase, double energiaMax) {
-        super(nombre, psMax, velBase, atqBase);
+        super(nombre, psMax, atqBase, velBase);
         this.energiaMax = energiaMax;
         this.energia = energiaMax/2;
     }
