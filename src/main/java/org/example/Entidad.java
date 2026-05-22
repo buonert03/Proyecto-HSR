@@ -91,7 +91,7 @@ public abstract class Entidad {
      * @param reduccion Porcentaje del Ataque Base que se usará para reducir el ataque actual de la Entidad.
      */
     protected void reducirAtq(double reduccion)  {
-        Double ataqueReducido = atqActual - (atqBase * (reduccion/100));
+        double ataqueReducido = atqActual - (atqBase * (reduccion/100));
         if (ataqueReducido < atqBase/2) {
             ataqueReducido = atqBase/2;
         }
@@ -126,7 +126,7 @@ public abstract class Entidad {
      * @param reduccion Porcentaje de la Velocidad Base que se usará para reducir la Velocidad Actual.
      */
     protected void reducirVel(double reduccion) {
-        Double velReducida = velActual - (velBase * (reduccion/100));
+        double velReducida = velActual - (velBase * (reduccion/100));
         if (velReducida < velBase/2) {velReducida = velBase/2;}
         this.vaActual = this.vaActual + ((1000/velReducida)-(1000/this.velActual));
         this.velActual = velReducida;
@@ -136,7 +136,7 @@ public abstract class Entidad {
      * @param aumento Porcentaje de la Velocidad Base que se usará para aumentar la Velocidad Actual.
      */
     protected void aumentarVel(double aumento) {
-        Double velAumentada = velActual + (velBase * (aumento/100));
+        double velAumentada = velActual + (velBase * (aumento/100));
         this.vaActual = this.vaActual - ((1000/velActual)-(1000/velAumentada));
         this.velActual = velAumentada;
     }

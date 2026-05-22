@@ -1,9 +1,24 @@
 package org.example;
 
 public class Enemigo extends Entidad {
-    private double equilibrioMax;
+    private final double equilibrioMax;
     private double equilibrio;
-    private double vulnerable;
+
+    public enum Vulnerabilidad {
+        NO(1.0),
+        SI(1.3);
+
+        private double vulnerable;
+
+        Vulnerabilidad(double vulnerable) {
+            this.vulnerable = vulnerable;
+        }
+        public double getVulnerable() {
+            return vulnerable;
+        }
+    }
+    private Vulnerabilidad vul = Vulnerabilidad.NO;
+
 
     // ---------------- CONSTRUCTOR ----------------
     public Enemigo(String nombre, double psMax, double atqBase, double velBase, double equilibrioMax) {
@@ -136,24 +151,25 @@ public class Enemigo extends Entidad {
     public void restaurarEquilibrio() {
         if (this.equilibrio <= 0) {
             equilibrio = equilibrioMax;
-            restablecerVulnerabilidad();
+            vul = Vulnerabilidad.NO;
         }
     }
+
     /**
      * Obtiene el multiplicador del estado actual de Vulnerabilidad del Enemigo.
      * @return Valor multiplicativo cuyo valor depende de la cantidad de Equilibrio del Enemigo.
      */
-    public double getVulnerable() {
-        return vulnerable;
+ //   public double getVulnerable() {
+ //       return vul;
     }
     /**
      * Aumenta el valor del multiplicador de Vulnerable.
      */
-    public void aumentarVulnerabilidad () {vulnerable = 1.3;}
+ //   public void aumentarVulnerabilidad () {vulnerable = 1.3;}
     /**
      * Reinicia el valor del multiplicador de Vulnerable.
      */
-    public void restablecerVulnerabilidad () {vulnerable = 1;}
+ //   public void restablecerVulnerabilidad () {vulnerable = 1;}
 
     @Override
     public String toString() {

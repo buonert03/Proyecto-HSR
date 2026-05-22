@@ -1,18 +1,15 @@
 package org.example;
 
-import java.sql.SQLOutput;
-
 public class Game {
-    private double phMax = 5;
+    private final double phMax = 5;
     private double ph = 3;
-    private Aliado aliado = new Aliado("Math", 4000, 100, 250, 150);
-    private Enemigo enemigo = new Enemigo("Marta", 14000, 120, 150, 80);
+    private final Aliado aliado;
+    private final Enemigo enemigo;
 
     public Game(Aliado aliado, Enemigo enemigo) {
         this.aliado = aliado;
         this.enemigo = enemigo;
     }
-
 
     public Aliado getAliado() {
         return this.aliado;
@@ -22,11 +19,12 @@ public class Game {
     }
 
     // ---------------------- GESTIÓN DE PUNTOS DE HABILIDAD ---------------------------------
-    public Double getPH() {return ph;}
+    public double getPH() {return ph;}
+    public double getPhMax() {return phMax;}
     public void aumentarPH(Double aumento) {
         ph += aumento;
-        if (ph > 5){
-            ph = 5;
+        if (ph > phMax){
+            ph = phMax;
         }
     }
     public void reducirPH(Double reduccion) {
@@ -41,12 +39,8 @@ public class Game {
      * @param habilidad Un número entero que representa cual habilidad se ha escogido y comprobar si es válida.
      * @return Valor booleano que representa si la habilidad dada es válida o no para el propósito del programa.
      */
-    public boolean habilidadValida(int habilidad) {
-        if (habilidad != 1 && habilidad != 2 && habilidad != 3 && habilidad != 4 && habilidad != 5) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean habilidadValida(String habilidad) {
+        return habilidad.equals("1") || habilidad.equals("2") || habilidad.equals("3") || habilidad.equals("4") || habilidad.equals("5");
     }
 
         // Habilidad 1
@@ -99,7 +93,7 @@ public class Game {
     }
 
     // --------------------------- HABILIDADES DEL ENEMIGO ------------------------------------
-    public void reestablecerEq() {
+    public void restablecerEq() {
         enemigo.restaurarEquilibrio();
     }
 

@@ -1,8 +1,8 @@
 package org.example;
 
 public class Aliado extends Entidad {
-    private double energiaMax = 150;
-    private double energia = energiaMax/2;
+    private final double energiaMax;
+    private double energia;
 
     // ---------------- CONSTRUCTOR ----------------
     public Aliado(String nombre, double psMax, double atqBase, double velBase, double energiaMax) {
