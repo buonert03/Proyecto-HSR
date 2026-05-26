@@ -208,7 +208,7 @@ public class Interfaz {
         if (vulnerable == 1.3) {
             va = va + (1000/enemigo.getVelActual())*(enemigo.atrasoEquilibrioRoto()/100);
         }
-        double multiplicador = 2;
+        double multiplicador = 4;
         double damage = aliado.getAtqActual() * multiplicador * vulnerable;
 
         System.out.println();

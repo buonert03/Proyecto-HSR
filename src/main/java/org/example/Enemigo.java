@@ -120,7 +120,7 @@ public class Enemigo extends Entidad {
     public void reducirEquilibrio(double reduccion) {
         equilibrio = equilibrio - reduccion;
         if (equilibrio <= 0) {
-            this.vul = Vulnerabilidad.SI;
+            aumentarVulnerabilidad();
             atrasarAccion(atrasoEquilibrioRoto());
         }
     }
@@ -137,7 +137,7 @@ public class Enemigo extends Entidad {
     public void restaurarEquilibrio() {
         if (this.equilibrio <= 0) {
             equilibrio = equilibrioMax;
-            vul = Vulnerabilidad.NO;
+            restablecerVulnerabilidad();
         }
     }
 
