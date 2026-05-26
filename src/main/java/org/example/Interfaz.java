@@ -3,6 +3,35 @@ package org.example;
 public class Interfaz {
 
     // Interfaz general
+    public void tutorial() {
+        System.out.println("----- TUTORIAL -----");
+        System.out.println("Tu objetivo para ganar este combate será reducir los Puntos de Salud del enemigo a 0");
+        System.out.println("Para ello tendrás que usar una variedad de habilidades y gestionar diferentes recursos de combate, solo podrás usar habilidades durante tu turno, y al usar una deberás esperar a tu próximo turno otra vez");
+        System.out.println();
+        System.out.println("ESTADÍSTICAS");
+        System.out.println("PS: Puntos de Salud, si tus PS llegan a cero pierdes ");
+        System.out.println("ATQ: Ataque, este valor se tomará en cuenta a la hora de reducir los PS del objetivo");
+        System.out.println("VA: Valor de Acción, este valor indica cuanto te falta para tomar tu próximo turno, si llega a 0 será tu turno");
+        System.out.println("VEL: Velocidad, este valor define cuanto VA tendrás al inicio y después de cada turno");
+        System.out.println("ER: Energía, este valor es exclusivo del Aliado, y es un recurso que cuando alcance su máximo podrás consumirlo para usar una habilidad definitiva, recuperas ER con cualquier habilidad menos con la Definitiva");
+        System.out.println("EQ: Equilibrio, este valor es exclusivo del Enemigo, lo podrás reducir con cada ataque que le inflingas, y si cae a cero o menos, el Enemigo recibirá más daño y se atrasará su VA, solo podrá recuperar EQ al inicio de su turno después de caer por debajo de 0");
+        System.out.println("PH: Puntos de Habilidad, recurso global que se genera o se consume al usar diferentes habilidades, nunca puede estar por debajo de 0 ni superar el límite máximo");
+        System.out.println();
+        System.out.println("HABILIDADES DEL ALIADO");
+        System.out.println("Habilidad 1, Básico: Haces un poco de daño, y recuperas un PH");
+        System.out.println("Habilidad 2, Incremento: Consume 2 PH, recupera mucha ER, aumenta el ATQ y la VEL, y adelanta tu próxima acción");
+        System.out.println("Habilidad 3, Curación: Requiere 1 PH para usarse pero no lo consume, regenera PS en base a la cantidad máxima de PS que puedes tener");
+        System.out.println("Habilidad 4, Especial: Consume 1 PH, reduce el ATQ y la VEL del Enemigo y le hace una cantidad de daño considerable");
+        System.out.println("Habilidad 5, Definitiva: Consume toda la ER, regenera 3 PH, hace daño masivo y adelanta un poco tu próxima acción");
+        System.out.println();
+        System.out.println("HABILIDADES DEL ENEMIGO");
+        System.out.println("Habilidad 1, Básico: Hace un poco daño");
+        System.out.println("Habilidad 2, QuitarPH: Hace algo de daño y reduce la cantidad de PH si hubiese");
+        System.out.println("Habilidad 3, Autobufo: Hace bastante daño e incrementa su ATQ y VEL");
+        System.out.println("Habilidad 4, Debuff: Hace muy poco daño y reduce el ATQ, la VEL y la ER del Aliado");
+        System.out.println("Habilidad 5, Definitiva: Hace mucho daño, se cura PS en base a sus PS Máximos, adelanta su próxima acción y atrasa un poco la acción del Aliado");
+        System.out.println();
+    }
     public void situacion (Aliado aliado, Enemigo enemigo, double ph, double phmax) {
         System.out.println(enemigo);
         System.out.println(aliado);
@@ -47,7 +76,7 @@ public class Interfaz {
             eqReducido = 0;
         }
 
-        double vulnerable = enemigo.getVulnerable();
+        double vulnerable = enemigo.getVulnerable().getVulnerable();
         if (vulnerable == 1 && eqReducido == 0) {
             vulnerable = 1.3;
         }
@@ -129,7 +158,7 @@ public class Interfaz {
             eqReducido = 0;
         }
 
-        double vulnerable = enemigo.getVulnerable();
+        double vulnerable = enemigo.getVulnerable().getVulnerable();
         if (vulnerable == 1 && eqReducido == 0) {
             vulnerable = 1.3;
         }
@@ -171,7 +200,7 @@ public class Interfaz {
         if (eqReducido < 0) {
             eqReducido = 0;
         }
-        double vulnerable = enemigo.getVulnerable();
+        double vulnerable = enemigo.getVulnerable().getVulnerable();
         if (vulnerable == 1 && eqReducido == 0) {
             vulnerable = 1.3;
         }

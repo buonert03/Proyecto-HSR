@@ -3,21 +3,7 @@ package org.example;
 public class Enemigo extends Entidad {
     private final double equilibrioMax;
     private double equilibrio;
-
-    public enum Vulnerabilidad {
-        NO(1.0),
-        SI(1.3);
-
-        private double vulnerable;
-
-        Vulnerabilidad(double vulnerable) {
-            this.vulnerable = vulnerable;
-        }
-        public double getVulnerable() {
-            return vulnerable;
-        }
-    }
-    private Vulnerabilidad vul = Vulnerabilidad.NO;
+    private Vulnerabilidad vul;
 
 
     // ---------------- CONSTRUCTOR ----------------
@@ -25,7 +11,7 @@ public class Enemigo extends Entidad {
         super(nombre, psMax, atqBase, velBase);
         this.equilibrioMax = equilibrioMax;
         this.equilibrio = equilibrioMax;
-        this.vulnerable = 1;
+        this.vul = Vulnerabilidad.NO;
     }
 
     // ---------------- NOMBRE ----------------
@@ -134,7 +120,7 @@ public class Enemigo extends Entidad {
     public void reducirEquilibrio(double reduccion) {
         equilibrio = equilibrio - reduccion;
         if (equilibrio <= 0) {
-            aumentarVulnerabilidad();
+            this.vul = Vulnerabilidad.SI;
             atrasarAccion(atrasoEquilibrioRoto());
         }
     }
@@ -159,17 +145,17 @@ public class Enemigo extends Entidad {
      * Obtiene el multiplicador del estado actual de Vulnerabilidad del Enemigo.
      * @return Valor multiplicativo cuyo valor depende de la cantidad de Equilibrio del Enemigo.
      */
- //   public double getVulnerable() {
- //       return vul;
+    public Vulnerabilidad getVulnerable() {
+        return vul;
     }
     /**
      * Aumenta el valor del multiplicador de Vulnerable.
      */
- //   public void aumentarVulnerabilidad () {vulnerable = 1.3;}
+    public void aumentarVulnerabilidad () {this.vul = Vulnerabilidad.SI;}
     /**
      * Reinicia el valor del multiplicador de Vulnerable.
      */
- //   public void restablecerVulnerabilidad () {vulnerable = 1;}
+    public void restablecerVulnerabilidad () {this.vul = Vulnerabilidad.NO;}
 
     @Override
     public String toString() {

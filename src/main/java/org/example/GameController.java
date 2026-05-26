@@ -14,6 +14,7 @@ public class GameController {
     }
 
     public void combate() {
+        interfaz.tutorial();
         interfaz.situacion(game.getAliado(), game.getEnemigo(), game.getPH(), game.getPhMax());
         int secuenciaAtaqueEnemigo = 0;
         while (!game.acabaCombate()) {

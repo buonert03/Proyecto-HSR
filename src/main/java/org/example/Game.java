@@ -48,7 +48,7 @@ public class Game {
         aumentarPH(1.0);
         aliado.aumentarEnergia(25.0);
         enemigo.reducirEquilibrio(20.0);
-        enemigo.perderPs(aliado.getAtqActual() * 1.25 * enemigo.getVulnerable());
+        enemigo.perderPs(aliado.getAtqActual() * 1.25 * enemigo.getVulnerable().getVulnerable());
         aliado.resetearVa();
     }
 
@@ -78,7 +78,7 @@ public class Game {
         enemigo.reducirEquilibrio(40.0);
         enemigo.reducirVel(20);
         enemigo.reducirAtq(10);
-        enemigo.perderPs(aliado.getAtqActual() * 2.0 * enemigo.getVulnerable());
+        enemigo.perderPs(aliado.getAtqActual() * 2.0 * enemigo.getVulnerable().getVulnerable());
         aliado.resetearVa();
     }
 
@@ -87,7 +87,7 @@ public class Game {
         aliado.vaciarEnergia();
         aumentarPH(3.0);
         enemigo.reducirEquilibrio(50.0);
-        enemigo.perderPs(aliado.getAtqActual() * 4.0 * enemigo.getVulnerable());
+        enemigo.perderPs(aliado.getAtqActual() * 4.0 * enemigo.getVulnerable().getVulnerable());
         aliado.resetearVa();
         aliado.adelantarAccion(25.0);
     }
